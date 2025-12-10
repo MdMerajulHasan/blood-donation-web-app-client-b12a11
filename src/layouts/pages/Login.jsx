@@ -5,35 +5,41 @@ import { Link } from "react-router";
 
 const Login = () => {
   return (
-    <div className="flex flex-col-reverse md:flex-row gap-1 md:gap-5 justify-center items-center mt-2 md:mt-10 w-11/12 lg:w-4/5 mx-auto">
-      <div className="md:w-1/2">
-        <h2 className="text-2xl m-0 md:text-4xl font-bold text-violet-500 text-center my-2 md:my-5">
+    <div className="flex flex-col-reverse md:flex-row gap-1 md:gap-5 justify-center items-start mt-2 md:mt-10 w-11/12 lg:w-4/5 mx-auto">
+      <div className="w-11/12 mx-auto md:w-1/2">
+        <h2 className="text-2xl md:text-4xl font-bold text-violet-500 text-center my-1 md:my-5">
           Login
         </h2>
         <form className="space-y-1 md:space-y-5">
-          <label className="input w-full validator">
-            <MdOutlineEmail size={20} />
-            <input
-              type="email"
-              className="w-full"
-              title="Give Email That You Have Given To Register"
-              placeholder="Give Your Mail"
-              required
-            />
-          </label>
-          <div className="validator-hint hidden text-sm md:text-base font-bold">
-            Enter valid email address
+          <div>
+            <legend className="fieldset-legend md:pt-0">Email</legend>
+            <label className="input w-full validator">
+              <MdOutlineEmail size={20} />
+              <input
+                type="email"
+                className="w-full"
+                title="Give Email That You Have Given To Register"
+                placeholder="Give Your Mail"
+                required
+              />
+            </label>
+            <div className="validator-hint hidden text-sm md:text-base font-bold">
+              Enter valid email address
+            </div>
           </div>
-          <label className="input w-full">
-            <RiLockPasswordFill />
-            <input
-              type="password"
-              className="w-full"
-              required
-              placeholder="Type Your Password"
-              title="Type Password That Was Created By You"
-            />
-          </label>
+          <div>
+            <legend className="fieldset-legend">Password</legend>
+            <label className="input w-full">
+              <RiLockPasswordFill />
+              <input
+                type="password"
+                className="w-full"
+                required
+                placeholder="Type Your Password"
+                title="Type Password That Was Created By You"
+              />
+            </label>
+          </div>
           <p className="text-violet-500 font-bold text-xs md:text-sm text-end w-full">
             <a href=""> Forgot Password?</a>
           </p>
@@ -48,14 +54,14 @@ const Login = () => {
           </Link>
         </p>
       </div>
-      <div className="md:w-1/2">
+      <div className="w-11/12 mx-auto md:w-1/2">
         <h2 className="text-2xl md:text-4xl font-bold text-violet-500 text-center my-2 md:my-5">
           Welcome Back
         </h2>
         <img
           className="h-[140px] md:h-[250px] md:w-[400px] mx-auto"
           src="/src/assets/blood_donation_auth_image.jpeg"
-          alt=""
+          alt="auth image"
         />
       </div>
     </div>

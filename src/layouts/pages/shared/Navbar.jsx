@@ -22,7 +22,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar sticky py-0 md:py-1 top-0 bg-linear-to-br from-red-600 to-red-300 shadow-sm">
+    <div className="navbar sticky py-0 z-10 md:py-1 top-0 bg-linear-to-br from-red-600 to-red-300 shadow-sm">
       <div className="navbar-start">
         <div className="dropdown">
           <div
