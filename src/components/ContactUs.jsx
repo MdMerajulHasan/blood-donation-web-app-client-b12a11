@@ -19,43 +19,48 @@ const ContactUs = () => {
               required
               placeholder="Your name"
             />
-            <legend className="fieldset-legend">Company</legend>
+            <legend className="fieldset-legend">Subject</legend>
             <input
               className="input w-full"
               type="text"
               name="company"
               placeholder="Company name"
             />
-            <legend className="fieldset-legend">Your Position</legend>
-            <input
-              className="input w-full"
-              type="text"
-              name="position"
-              placeholder="Position in company"
-            />
+            <legend className="fieldset-legend">Blood Group</legend>
+            <select name="bloodGroup" className="select appearance-none w-full">
+              <option value="">Select Your Blood Group</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+            </select>
           </div>
           <div className="w-11/12 md:w-1/2">
-            <legend className="fieldset-legend">Email*</legend>
+            <legend className="fieldset-legend">Email</legend>
             <input
               type="email"
-              required
               name="email"
               className="input w-full"
               placeholder="Your email"
             />
-            <legend className="fieldset-legend">Country</legend>
+            <legend className="fieldset-legend">Location</legend>
             <input
               type="text"
-              name="country"
+              name="location"
               className="input w-full"
-              placeholder="Company position"
+              placeholder="Your location"
             />
-            <legend className="fieldset-legend">Phone</legend>
+            <legend className="fieldset-legend">Phone*</legend>
             <input
               type="text"
               name="phone"
               className="input w-full"
               placeholder="Phone number"
+              required
             />
           </div>
         </div>
