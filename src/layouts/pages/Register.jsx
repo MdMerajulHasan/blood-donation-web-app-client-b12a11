@@ -3,7 +3,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { FaUserAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
@@ -14,8 +14,9 @@ const Register = () => {
   const [districts, setDistricts] = useState([]);
   const [upazilas, setUpazilas] = useState([]);
   const [upazilasInSelect, setUpazilasInSelect] = useState([]);
-
+  const location = useLocation();
   const navigate = useNavigate();
+
   const axiosInstance = useAxios();
 
   useEffect(() => {
@@ -102,7 +103,6 @@ const Register = () => {
         .then((res) => {
           if (res.data.insertedId) {
             alert("User Data Saved");
-            navigate("/");
           }
         })
         .catch((error) => {
@@ -112,6 +112,7 @@ const Register = () => {
       updateUser({ displayName: name, photoURL: userInfo.photo })
         .then(() => {
           setUser(currentUser.user);
+          navigate(location.state || "/");
         })
         .catch((error) => alert(error.message));
     } catch (error) {
@@ -280,7 +281,11 @@ const Register = () => {
         </form>
         <p className="my-1 text-[14px] md:text-base md:my-5 text-center">
           Already Have an Account?
-          <Link to="/login" className="m-0 text-violet-500 font-bold">
+          <Link
+            state={location?.state}
+            to="/login"
+            className="m-0 text-violet-500 font-bold"
+          >
             Login
           </Link>
         </p>

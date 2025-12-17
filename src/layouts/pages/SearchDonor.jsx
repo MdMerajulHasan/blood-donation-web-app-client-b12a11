@@ -119,15 +119,12 @@ const SearchDonor = () => {
             Donors Found {`${donors?.length}`}
           </h2>
           <div className="overflow-x-auto bg-white w-11/12 mx-auto">
-            <table className="table table-zebra">
+            <table className="table table-zebra text-[10px] md:text-base text-center">
               {/* head */}
               <thead>
                 <tr>
                   <th>index</th>
                   <th>Name</th>
-                  <th>Blood Group</th>
-                  <th>District</th>
-                  <th>Upazila</th>
                   <th>Email</th>
                 </tr>
               </thead>
@@ -136,9 +133,6 @@ const SearchDonor = () => {
                   <tr key={donor._id}>
                     <td>{index + 1}</td>
                     <td>{donor.name}</td>
-                    <td>{donor.bloodGroup}</td>
-                    <td>{donor.district}</td>
-                    <td>{donor.upazila}</td>
                     <td>{donor.email}</td>
                   </tr>
                 ))}

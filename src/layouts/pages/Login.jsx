@@ -1,20 +1,21 @@
 import React from "react";
 import { MdOutlineEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { Link, Navigate, useNavigate } from "react-router";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
   const { signInUser, setUser } = useAuth();
   const { register, handleSubmit } = useForm();
+  const location = useLocation();
   const navigate = useNavigate();
 
   const handleLogin = (data) => {
     signInUser(data.email, data.password)
       .then((currentUser) => {
         setUser(currentUser.user);
-        navigate("/");
+        navigate(location?.state || "/");
       })
       .catch((error) => alert(error.message));
   };
@@ -69,7 +70,11 @@ const Login = () => {
         </form>
         <p className="my-1 text-[14px] md:text-base md:my-5 text-center">
           Haven't Any Account?
-          <Link to="/registration" className="m-0 text-violet-500 font-bold">
+          <Link
+            state={location?.state}
+            to="/registration"
+            className="m-0 text-violet-500 font-bold"
+          >
             Register Now
           </Link>
         </p>
