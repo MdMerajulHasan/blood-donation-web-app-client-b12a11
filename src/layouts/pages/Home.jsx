@@ -12,7 +12,6 @@ const Home = () => {
         <WhyDonate></WhyDonate>
         <ContactUs></ContactUs>
       </div>
-      <Footer></Footer>
     </div>
   );
 };

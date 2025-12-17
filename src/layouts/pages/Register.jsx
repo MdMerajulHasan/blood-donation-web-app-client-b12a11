@@ -57,15 +57,20 @@ const Register = () => {
     setUpazilasInSelect(newUpazilas);
   }, [districts, district, upazilas]);
 
-  const handleRegister = (data) => {
+  const handleRegister = async (data) => {
     const { email, name, photo, password, bloodGroup, district, upazila } =
       data;
-    // getting the image data from form
-    const profileImage = photo[0];
 
-    // registering user in firebase
-    registerUser(email, password)
-      .then((currentUser) => {
+    try {
+      // getting the image data from form
+      const profileImage = photo?.[0];
+
+      // registering user in firebase
+      const currentUser = await registerUser(email, password);
+      //declaring and setting phot url "" initially
+      let photoURL = "";
+
+      if (photo?.length > 0) {
         // storing the form data in FormData
         const formData = new FormData();
         formData.append("image", profileImage);
@@ -76,42 +81,42 @@ const Register = () => {
         }`;
 
         // using axios uploading photo and getting url
-        axios.post(image_API_Url, formData).then((res) => {
-          // getting the url of uploaded photo
-          const imgBB_photo_Url = res.data.data.display_url;
+        const imageRes = await axios.post(image_API_Url, formData);
+        // getting the url of uploaded photo
+        photoURL = imageRes.data.data.display_url;
+      }
 
-          // making userInfo object to store in database and giving data to firebase
-          const userInfo = {
-            name,
-            email,
-            photo: imgBB_photo_Url,
-            bloodGroup,
-            district,
-            upazila,
-          };
+      // making userInfo object to store in database and giving data to firebase
+      const userInfo = {
+        name,
+        email,
+        photo: photoURL,
+        bloodGroup,
+        district,
+        upazila,
+      };
 
-          // saving data to database
-          axiosInstance
-            .post("/users", userInfo)
-            .then((res) => {
-              if (res.data.insertedId) {
-                alert("User Data Saved");
-              }
-            })
-            .catch((error) => {
-              alert(error.message);
-            });
-
-          // using function to update user in firebase
-          updateUser({ displayName: name, photoURL: imgBB_photo_Url })
-            .then(() => {
-              setUser(currentUser.user);
-              navigate("/");
-            })
-            .catch((error) => alert(error.message));
+      // saving data to database
+      axiosInstance
+        .post("/users", userInfo)
+        .then((res) => {
+          if (res.data.insertedId) {
+            alert("User Data Saved");
+            navigate("/");
+          }
+        })
+        .catch((error) => {
+          alert(error.message);
         });
-      })
-      .catch((error) => alert(error.message));
+      // using function to update user in firebase
+      updateUser({ displayName: name, photoURL: userInfo.photo })
+        .then(() => {
+          setUser(currentUser.user);
+        })
+        .catch((error) => alert(error.message));
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
