@@ -33,6 +33,10 @@ const router = createBrowserRouter([
         path: "/dashboard/create-donation-request",
         element: <CreateDonationRequest></CreateDonationRequest>,
       },
+      {
+        path: "/dashboard/my-donation-requests",
+        element: <CreateDonationRequest></CreateDonationRequest>,
+      },
     ],
   },
 ]);

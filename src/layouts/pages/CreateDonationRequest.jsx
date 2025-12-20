@@ -56,8 +56,8 @@ const CreateDonationRequest = () => {
 
   return (
     <div className="bg-base-200 space-y-2 md:space-y-5 py-1 md:py-5 rounded-md">
-      <h2 className="text-red-600 text-xl md:text-4xl font-bold text-center">
-        Create Donation Request
+      <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
+        Donation Request
       </h2>
       <form
         onSubmit={handleSubmit(handleRequest)}
