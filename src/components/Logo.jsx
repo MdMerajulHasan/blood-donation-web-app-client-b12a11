@@ -9,7 +9,7 @@ const Logo = () => {
         src="/src/assets/blood_donation_icon.jpg"
         alt="logo"
       />
-      <h4>Red Help</h4>
+      <h4 className="hidden lg:flex">Red Help</h4>
     </Link>
   );
 };

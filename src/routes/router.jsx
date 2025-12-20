@@ -6,6 +6,8 @@ import Home from "../layouts/pages/Home";
 import SearchDonor from "../layouts/pages/SearchDonor";
 import Dashboard from "../layouts/Dashboard";
 import PrivateRoute from "./PrivateRoute";
+import DashboardHome from "../layouts/pages/DashboardHome";
+import CreateDonationRequest from "../layouts/pages/CreateDonationRequest";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,13 @@ const router = createBrowserRouter([
         <Dashboard></Dashboard>
       </PrivateRoute>
     ),
+    children: [
+      { path: "/dashboard", element: <DashboardHome></DashboardHome> },
+      {
+        path: "/dashboard/create-donation-request",
+        element: <CreateDonationRequest></CreateDonationRequest>,
+      },
+    ],
   },
 ]);
 
