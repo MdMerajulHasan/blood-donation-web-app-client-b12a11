@@ -7,6 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
+import authImage from "../../assets/blood_donation_auth_image.jpeg";
 
 const Register = () => {
   // getting registration function from firebase
