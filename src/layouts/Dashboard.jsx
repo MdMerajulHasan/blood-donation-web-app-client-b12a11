@@ -3,11 +3,16 @@ import useRole from "../hooks/useRole";
 import Logo from "../components/Logo";
 import { Link, Outlet } from "react-router";
 import { BiSolidDonateBlood } from "react-icons/bi";
-import { FaHome, FaUser } from "react-icons/fa";
+import { FaHome, FaUser, FaUsers } from "react-icons/fa";
 import { TbDropletPlus } from "react-icons/tb";
+import Loading from "../components/Loading";
 
 const Dashboard = () => {
-  const { role } = useRole();
+  const { role, roleLoading } = useRole();
+
+  if (roleLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <div className="grid grid-cols-12">
       <div className="col-span-2 lg:col-span-1 space-y-5 h-screen sticky top-0 text-white text-xs font-bold bg-linear-to-tr from-red-600 to-red-300">
@@ -30,22 +35,46 @@ const Dashboard = () => {
           <FaUser size={25} />
           <span className="hidden md:flex">Profile</span>
         </Link>
-        <Link
-          to="/dashboard/my-donation-requests"
-          className="flex items-center justify-center md:justify-start gap-0.5"
-          title="My Donation Requests"
-        >
-          <BiSolidDonateBlood size={25} />
-          <span className="hidden md:flex">Requests</span>
-        </Link>
-        <Link
-          to="/dashboard/create-donation-request"
-          className="flex items-center justify-center md:justify-start gap-0.5"
-          title="Create Donation Requests"
-        >
-          <TbDropletPlus size={25} />
-          <span className="hidden md:flex">Create</span>
-        </Link>
+        {role === "donor" && (
+          <>
+            <Link
+              to="/dashboard/my-donation-requests"
+              className="flex items-center justify-center md:justify-start gap-0.5"
+              title="My Donation Requests"
+            >
+              <BiSolidDonateBlood size={25} />
+              <span className="hidden md:flex">Requests</span>
+            </Link>
+            <Link
+              to="/dashboard/create-donation-request"
+              className="flex items-center justify-center md:justify-start gap-0.5"
+              title="Create Donation Requests"
+            >
+              <TbDropletPlus size={25} />
+              <span className="hidden md:flex">Create</span>
+            </Link>
+          </>
+        )}
+        {role === "admin" && (
+          <>
+            <Link
+              to="/dashboard/all-users"
+              className="flex items-center justify-center md:justify-start gap-0.5"
+              title="All Users"
+            >
+              <FaUsers size={25} />
+              <span className="hidden md:flex">Users</span>
+            </Link>
+            <Link
+              to="/dashboard/all-blood-donation-request"
+              className="flex items-center justify-center md:justify-start gap-0.5"
+              title="All Requests"
+            >
+              <BiSolidDonateBlood size={25} />
+              <span className="hidden md:flex">Requests</span>
+            </Link>
+          </>
+        )}
       </div>
       <div className="col-span-10 lg:col-span-11 bg-base-200">
         <Outlet></Outlet>

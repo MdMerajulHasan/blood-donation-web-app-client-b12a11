@@ -13,11 +13,13 @@ import Profile from "../layouts/pages/Profile";
 import DonationRequests from "../layouts/pages/DonationRequests";
 import Request from "../layouts/pages/Request";
 import Update from "../layouts/pages/Update";
+import Error404 from "../layouts/pages/Error404";
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
+    errorElement: <Error404></Error404>,
     children: [
       { index: true, Component: Home },
       { path: "/search-donors", Component: SearchDonor },
@@ -39,6 +41,7 @@ const router = createBrowserRouter([
   { path: "/registration", Component: Register },
   {
     path: "/dashboard",
+    errorElement: <Error404></Error404>,
     element: (
       <PrivateRoute>
         <Dashboard></Dashboard>

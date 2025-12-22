@@ -8,9 +8,11 @@ import { FaEdit } from "react-icons/fa";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { CgDetailsMore } from "react-icons/cg";
 import { Link, useNavigate } from "react-router";
+import useRole from "../../hooks/useRole";
 
 const DashboardHome = () => {
   const { user } = useAuth();
+  const { role, roleLoading } = useRole();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const {
@@ -26,7 +28,7 @@ const DashboardHome = () => {
       return res.data;
     },
   });
-
+  console.log(role);
   const handleStatus = (status, id) => {
     axiosSecure
       .patch(`/update/${id}/progress?email=${user?.email}`, {
@@ -52,7 +54,7 @@ const DashboardHome = () => {
       .catch((error) => alert(error.message));
   };
 
-  if (my3ReqLoading) {
+  if (my3ReqLoading || roleLoading) {
     return <Loading></Loading>;
   } else {
     return (
@@ -64,7 +66,7 @@ const DashboardHome = () => {
             cursor
           ></Typewriter>
         </div>
-        {my3Req.length > 0 && (
+        {my3Req.length > 0 && role === "donor" && (
           <div className="bg-base-100 w-11/12 mx-auto space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
             <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
               Recent requests
@@ -146,7 +148,6 @@ const DashboardHome = () => {
                             <span>
                               <CgDetailsMore />
                             </span>
-                            
                           </Link>
                         </div>
                       </td>
