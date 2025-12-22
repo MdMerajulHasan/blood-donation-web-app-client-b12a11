@@ -8,6 +8,7 @@ const CreateDonationRequest = () => {
   const axiosSecure = useAxiosSecure();
   const [districts, setDistricts] = useState([]);
   const [upazilas, setUpazilas] = useState([]);
+  const [status, setStatus] = useState("");
   const [upazilasInSelect, setUpazilasInSelect] = useState([]);
 
   useEffect(() => {
@@ -15,6 +16,13 @@ const CreateDonationRequest = () => {
       .then((res) => res.json())
       .then((data) => setDistricts(data));
   }, []);
+
+  useEffect(() => {
+    axiosSecure
+      .get(`/user-status?email=${user?.email}`)
+      .then((res) => setStatus(res.data))
+      .catch((error) => alert(error.message));
+  }, [axiosSecure, user]);
 
   useEffect(() => {
     fetch("/subDistricts.json")
@@ -180,13 +188,19 @@ const CreateDonationRequest = () => {
             placeholder="Write Details Why You Need Bloods."
           ></textarea>
         </div>
-        <button
-          type="submit"
-          className="bg-linear-to-br mx-auto from-red-600 to-red-300 text-white lg:py-1 w-11/12 md:w-40 lg:w-52 border font-bold md:text-lg border-white rounded-md flex gap-2 justify-center items-center"
-        >
-          Request
-        </button>
+        {status === "active" && (
+          <button
+            type="submit"
+            className="bg-linear-to-br mx-auto from-red-600 to-red-300 text-white lg:py-1 w-11/12 md:w-40 lg:w-52 border font-bold md:text-lg border-white rounded-md flex gap-2 justify-center items-center"
+          >
+            Request
+          </button>
+        )}
       </form>
+
+      <button className="bg-linear-to-br mx-auto from-red-600 to-red-300 text-white lg:py-1 w-11/12 md:w-40 lg:w-52 border font-bold md:text-lg border-white rounded-md flex gap-2 justify-center items-center">
+        Blocked
+      </button>
     </div>
   );
 };

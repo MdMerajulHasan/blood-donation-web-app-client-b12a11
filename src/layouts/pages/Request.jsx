@@ -45,7 +45,7 @@ const Request = () => {
                 text: "Your donation inprogress",
                 icon: "success",
               });
-              navigate("/donation-requests")
+              navigate("/donation-requests");
             }
           })
           .catch((error) => alert(error.message));
@@ -107,12 +107,16 @@ const Request = () => {
             <tr>
               <th className="text-[#00000099] text-left">Action</th>
               <td className="text-left">
-                <button
-                  onClick={() => handleDonate(request._id)}
-                  className="bg-green-600 text-white px-2 py-1 rounded-md font-bold"
-                >
-                  Donate
-                </button>
+                {request?.donationStatus === "pending" ? (
+                  <button
+                    onClick={() => handleDonate(request._id)}
+                    className="bg-green-600 text-white px-2 py-1 rounded-md font-bold"
+                  >
+                    Donate
+                  </button>
+                ) : (
+                  <p>{request?.donationStatus}</p>
+                )}
               </td>
             </tr>
           </tbody>

@@ -12,6 +12,7 @@ const MyDonationRequests = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
+
   const {
     isLoading: allRequestsLoading,
     data: allRequests = [],
@@ -37,6 +38,19 @@ const MyDonationRequests = () => {
           navigate("/dashboard/my-donation-requests");
         }
       });
+  };
+
+  const handleDelete = (id) => {
+    axiosSecure
+      .delete(`/delete/${id}?email=${user?.email}`)
+      .then((res) => {
+        if (res.data.deletedCount) {
+          alert("Deleted!");
+          refetch();
+          navigate("/dashboard/my-donation-requests");
+        }
+      })
+      .catch((error) => alert(error.message));
   };
 
   if (allRequestsLoading) {
@@ -117,12 +131,18 @@ const MyDonationRequests = () => {
                               <FaEdit />
                             </span>
                           </Link>
-                          <span>
-                            <RiDeleteBinFill />
-                          </span>
-                          <span>
-                            <CgDetailsMore />
-                          </span>
+                          <button onClick={() => handleDelete(r._id)}>
+                            <span>
+                              <RiDeleteBinFill />
+                            </span>
+                          </button>
+                          <Link
+                            to={`/request/${r._id}`}
+                          >
+                            <span>
+                              <CgDetailsMore />
+                            </span>
+                          </Link>
                         </div>
                       </td>
                     </tr>
