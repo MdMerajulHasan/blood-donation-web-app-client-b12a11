@@ -4,9 +4,11 @@ import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/Loading";
+import useRole from "../../hooks/useRole";
 
 const Update = () => {
   const { id } = useParams();
+  const { role } = useRole();
   const { user } = useAuth();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
@@ -29,7 +31,11 @@ const Update = () => {
       .then((res) => {
         if (res.data.modifiedCount) {
           alert("Data Updated!");
-          navigate("/dashboard/my-donation-requests");
+          if (role === "donor") {
+            navigate("/dashboard/my-donation-requests");
+          } else {
+            navigate("/dashboard/all-blood-donation-request");
+          }
         }
       })
       .catch((error) => alert(error.message));
