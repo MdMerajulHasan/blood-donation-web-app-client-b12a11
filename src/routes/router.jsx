@@ -14,6 +14,7 @@ import DonationRequests from "../layouts/pages/DonationRequests";
 import Request from "../layouts/pages/Request";
 import Update from "../layouts/pages/Update";
 import Error404 from "../layouts/pages/Error404";
+import Users from "../layouts/pages/Users";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/update/:id",
         element: <Update></Update>,
+      },
+      {
+        path: "/dashboard/all-users",
+        element: <Users></Users>,
       },
     ],
   },
